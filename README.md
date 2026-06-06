@@ -1,11 +1,10 @@
 # FarmWatch
 
-Weather intelligence portal for Kenyan smallholder farmers — built as a technical assessment for [Weather-AI](https://weather-ai.co).
+Weather intelligence portal for Kenyan farmers — a technical assessment for [Weather-AI](https://weather-ai.co).
 
 FarmWatch solves a real last-mile problem: delivering timely, actionable weather data to farmers who make high-stakes decisions about planting, irrigation, and harvesting based on conditions they cannot control.
 
-**Live demo:** https://farmwatch.netlify.app ← _replace with your Netlify URL after deploy_
-
+**Live demo:** https://farmwat.netlify.app/ 
 ---
 
 ## Features
@@ -52,7 +51,7 @@ Drag-and-drop aerial or drone image upload. The image is sent as a multipart POS
 
 **Single API layer.** `src/lib/api.js` is the only file that calls the Weather-AI API. All fetch logic, auth headers, and response shaping live there. Components never call the API directly.
 
-**Server-side API key.** The Weather-AI key is never included in the browser bundle. In production, all `/api/*` requests are caught by a Netlify serverless function (`netlify/functions/proxy.js`) that injects the `Authorization: Bearer` header server-side before forwarding to `https://api.weather-ai.co/v1`. In local development, Vite's proxy middleware does the same from `.env`. The key is loaded as `process.env.WEATHER_API_KEY` — note there is no `VITE_` prefix, which is what prevents it from being baked into the client bundle at build time.
+**Server-side API key.** The Weather-AI key is never included in the browser bundle. In production, all `/api/*` requests are caught by a Netlify serverless function (`netlify/functions/proxy.js`) that injects the `Authorization: Bearer` header server-side before forwarding to `https://api.weather-ai.co/v1`. 
 
 **Private error logging.** `src/lib/errors.js` logs full error objects to the console while returning only generic, status-code-mapped messages to the UI. Stack traces are never surfaced to the browser.
 
@@ -76,7 +75,7 @@ Drag-and-drop aerial or drone image upload. The image is sent as a multipart POS
 | SoilGrids `/v2.0/properties/query` | GET | Soil pH, organic carbon, clay |
 | Nominatim `/search` | GET | Geocoding fallback for non-county queries |
 
-Weather-AI endpoints proxy through `netlify/functions/proxy.js` in production and through Vite's dev proxy locally. Open-Meteo, SoilGrids, and Nominatim are called directly from the browser — they are all free, keyless public APIs.
+Weather-AI endpoints proxy through `netlify/functions/proxy.js` in production and through Vite's dev proxy locally. Open-Meteo, SoilGrids, and Nominatim are called directly from the browser they are all free, keyless public APIs.
 
 ---
 
@@ -120,8 +119,6 @@ WEATHER_API_KEY=wai_your_key_here
 ```
 
 There is no step 4. Netlify reads `netlify.toml` and handles the rest.
-
-> The variable name must be `WEATHER_API_KEY` — not `VITE_WEATHER_API_KEY`. The `VITE_` prefix tells Vite to embed the value in the client bundle at build time; without it, the key stays server-side in the Netlify function.
 
 ---
 
@@ -186,5 +183,5 @@ Typography: `Syne` (headings) and `DM Sans` (body) from Google Fonts.
 
 ## Developer
 
-**Sharmake Ahmed** — Full-Stack Engineer, Nairobi, Kenya  
+**Sharmake Hassan** — Full-Stack Engineer, Nairobi, Kenya  
 React · TypeScript · Node.js · PostgreSQL · Firebase · Go

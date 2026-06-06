@@ -1,0 +1,27 @@
+[build]
+  command   = "npm run build"
+  publish   = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+# Proxy Weather-AI API calls — key stays server-side, never in the browser bundle
+[[redirects]]
+  from   = "/api/*"
+  to     = "/.netlify/functions/proxy"
+  status = 200
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options            = "DENY"
+    X-Content-Type-Options     = "nosniff"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Permissions-Policy         = "camera=(), microphone=(), geolocation=()"
+    # CSP: Weather-AI removed from connect-src — all API calls now go through same-origin /api proxy
+    Content-Security-Policy    = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nominatim.openstreetmap.org https://api.open-meteo.com https://rest.isric.org; frame-ancestors 'none';"
